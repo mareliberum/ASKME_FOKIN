@@ -1,0 +1,14 @@
+html{
+    height: 100%;
+}
+
+body{
+    background-color: #F0F0F0;
+    height: 100%;
+
+}
+
+.form-control{
+    width: 350px;
+}
+
