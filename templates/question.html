@@ -1,0 +1,81 @@
+{% extends "layouts/base.html" %}
+
+{% load static %}
+
+{% block content%}
+
+<div class="col-9 p-0" style="margin-right: 20px;">
+
+                    
+                    <div class="questionCard d-flex flex-row p-3" style="margin-bottom: 20px;  background-color: white;">
+                        <div class="col-2">
+                            <img src = "https://placehold.co/150x150"  alt = "img">
+
+                            <div class="border mb-1 rounded" style="width: 100px; margin-top: 15px;">
+                                <div class="row justify-content-end">
+                                    <div class="col-auto">
+                                        <div class="counter-container d-flex">
+                                            <span   style="margin-right: 15px; margin-top: 1px;">0</span>
+                                            <div class="arrow-buttons rounded">
+                                                <button class="arrow-button rounded" style="font-size: 0.9rem; border-color: grey; color: grey" onclick="updateCounter(1)">▲</button>
+                                                <button class="arrow-button rounded" style="font-size: 0.9rem; border-color: grey; color: grey" onclick="updateCounter(-1)">▼</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-10" style="padding: 16px;">
+                            <div>
+                                <h2 class="cardTitle">{{question.title}} </h2>
+
+                                <p class="card-text">Lorem ipsum odor amet, consectetuer adipiscing elit.
+                                        Quis consectetur netus aenean amet non cras interdum elementum.
+                                        Vel dis lobortis dolor curae platea.Mauris porttitor accumsan nisi id vestibulum.
+                                        Duis et tortor magna. Curabitur tempor posuere lobortis. Nullam sollicitudin lectus leo, 
+                                        sit amet accumsan felis tincidunt eget. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
+                                        per inceptos himenaeos. Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                
+                                <div class="Tags d-flex gap-3">
+                                    Tags:
+        
+                                        <a href="/tag/{{question.tag}}" class="card-link">{{question.tag}}</a>
+                                        <a href="#" class="card-link">Tag2</a>
+                                        <a href="#" class="card-link">Tag3</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        
+                    </div>
+
+                    <div class="comment section d-flex flex-column p-3 mb-3" style="background-color: white;"> 
+                        <h4 class="mb-4">Answers</h4>
+                        {% for answer in answers %}
+
+                        {% include "layouts/answerCard.html" %}
+
+                        {% endfor %}
+
+                        {%include "layouts/pagination.html"%}
+                    </div>
+                    
+                    <div class="my-answer p-3" style="background-color: white;">
+                        <h4 class="mb-4">My Aswer</h4>
+
+                        <div class="mb-3">
+                            <textarea class="form-control w-100" id="questionForm" rows="8" placeholder="Write your answer here"></textarea>
+                            <div class="d-grid gap-2 d-md-block mt-5">
+                                <button class="btn btn-primary" style="width: 200px; border-color: #548221; background-color: #548221; color: white;" type="button">Answer</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+{% endblock %}

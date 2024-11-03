@@ -1,0 +1,50 @@
+{% load static %}
+
+<article class="card w-100 shadow-sm" style="width: 18rem; border-color: white">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-2">
+                <div style="width: 100px; height: 100px; margin-left: 10px;">
+                    <img src="https://placehold.co/100x100" alt="avatar">
+                </div>
+                <div class="border mb-1 rounded" style="width: 100px; margin-left: 10px;">
+                    <div class="row justify-content-end">
+                        <div class="col-auto">
+                            <div class="counter-container d-flex">
+                                <span
+                                        style="margin-right: 15px; margin-top: 1px;">0</span>
+                                <div class="arrow-buttons rounded">
+                                    <button class="arrow-button rounded"
+                                            style="font-size: 0.9rem; border-color: grey; color: grey"
+                                            onclick="updateCounter(1)">▲
+                                    </button>
+                                    <button class="arrow-button rounded"
+                                            style="font-size: 0.9rem; border-color: grey; color: grey"
+                                            onclick="updateCounter(-1)">▼
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-10">
+
+                <a href="/question/{{question.id}}"><h5 class="card-title">{{question.title}}</h5></a>
+                <p class="card-text">{{question.text}}</p>
+
+                <div class="d-flex gap-5">
+<!--                    <a href="#" class="card-link">Answers()</a>-->
+
+                    Tags:
+
+                    <a href="/tag/{{question.tag}}" class="card-link">{{question.tag}}</a>
+                    <a href="#" class="card-link">Tags</a>
+                    <a href="#" class="card-link">Tags</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</article>
