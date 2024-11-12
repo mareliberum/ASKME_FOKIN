@@ -1,23 +1,10 @@
-import copy
-
 from django.core.paginator import Paginator, InvalidPage
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from .models import *
 
-QUESTIONS = [
-    {
-        'title': 'title ' + str(i),
-        'id': i,
-        'text': 'Text of the question' + str(i),
-        'tag': 'tag' + str(i % 2)
-    } for i in range(1, 30)
-]
-ANSWERS = [
-    {
-        'id': i,
-        'text': 'Text of the answer ' + str(i),
-    } for i in range(1, 30)
 
-]
+
+
 
 
 def paginate(objects_list, request, per_page=10):
@@ -32,34 +19,39 @@ def paginate(objects_list, request, per_page=10):
 
 
 def index(request):
-    page = paginate(QUESTIONS, request)
+    questions = Question.objects.new()
+    page = paginate(questions, request)
     return render(request, 'index.html', context={'questions': page.object_list, 'page_obj': page})
 
 
 def hot(request):
-    hot_questions = copy.deepcopy(QUESTIONS)
-    hot_questions.reverse()
+    hot_questions = Question.objects.best()
     page = paginate(hot_questions, request)
 
     return render(request, 'hot.html', context={'questions': page.object_list, 'page_obj': page})
 
 
 def question(request, question_id):
-    one_question = QUESTIONS[question_id - 1]
+    QUESTIONS = Question.objects.all()
+    ANSWERS = Answer.objects.all()
+    try:
+        one_question = QUESTIONS[question_id - 1]
+    except IndexError:
+        return render(request, '404page.html')
+
     page = paginate(ANSWERS, request, 5)
     return render(request, 'question.html',
                   context={'question': one_question, 'answers': page.object_list, 'page_obj': page})
 
 
 def tag(request, question_tag):
-    tagged_questions = []
-
-    for elem in QUESTIONS:
-        if elem["tag"] == question_tag:
-            tagged_questions.append(elem)
-
+    # Найти тег по его имени
+    tag = Tag.objects.filter(tag=question_tag).first()
+    if tag is None:
+        return render(request, '404page.html')
+    # Получить связанные с этим тегом вопросы
+    tagged_questions = tag.question.all()
     page = paginate(tagged_questions, request)
-
     return render(request, 'tag.html', context={'questions': page.object_list, 'page_obj': page, 'tag': question_tag})
 
 
