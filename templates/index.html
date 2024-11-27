@@ -1,0 +1,30 @@
+{% extends "layouts/base.html" %}
+
+{% load static %}
+
+{% block content%}
+
+<div class="d-flex gap-3 align-items-center justify-content-start mb-3">
+
+    <h1>New Questions</h1>
+
+    <a href="{% url 'hot' %}">Hot questions</a>
+
+    <a href="{% url 'ask' %}" class="auto btn btn-primary" style="border-color: white; margin-left: auto;
+                background-color: white; color: black; width: 100px;" type="button">Ask!</a>
+
+</div>
+<div class="col-9 p-0" style="margin-right: 20px;">
+     <div class="d-flex flex-column gap-2">
+
+        {% for question in questions %}
+        {% include "layouts/questionCard.html" %}
+
+        {% endfor %}
+     </div>
+     
+   {%include "layouts/pagination.html"%}
+</div>
+
+
+{% endblock %}
